@@ -1,0 +1,32 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+    {% if title %}{{ title }}{% else %}Welcome{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+    {% block footer %}
+    <div class="container"> {# Подвал сайта(Нижняя часть) #}
+        <footer class="footer">
+            <span class="text-muted">
+            </span>
+        </footer>
+    </div>
+
+    {% endblock %}
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+   body { background: LightYellow !important; } /* Задний фон (Background) */
+</style>
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='footer.css')}}">
+{% endblock %}
