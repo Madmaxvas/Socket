@@ -13,20 +13,6 @@
     </div>
     {% block footer %}
     <div class="container"> {# Подвал сайта(Нижняя часть) #}
-        <footer class="footer">
-            <span class="text-muted">
-            </span>
-        </footer>
     </div>
-
     {% endblock %}
-{% endblock %}
-
-{% block styles %}
-<style type="text/css">
-   body { background: LightYellow !important; } /* Задний фон (Background) */
-</style>
-{{super()}}
-<link rel="stylesheet"
-      href="{{url_for('.static', filename='footer.css')}}">
 {% endblock %}
