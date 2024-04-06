@@ -2,12 +2,13 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_login import LoginManager, login_required
 from flask_login import login_user, logout_user, current_user
-from tools.forms import LoginForm, RegisterForm
-from flask import render_template, flash, redirect, url_for
+from tools.forms import LoginForm, RegisterForm, Videoupload
+from flask import render_template, flash, redirect, url_for, request
 from flask_bs4 import Bootstrap
 from misc import db
 from tools.db import User
 import os
+import shortuuid
 SECRET_KEY = os.urandom(32)
 
 
@@ -23,20 +24,44 @@ db_cursor = db.cursor()
 db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
 a = db_cursor.fetchall()
 if not a:
-    db_cursor.execute('''CREATE TABLE info (                            
+    db_cursor.execute('''CREATE TABLE info (                       
                                                 mail TEXT PRIMARY KEY,
                                                 username TEXT,
                                                 name TEXT NOT NULL,
-                                                password TEXT NOT NULL);''')
+                                                password TEXT NOT NULL
+                                                );''')
+    db.commit()
+    db_cursor.execute('''CREATE TABLE videous (          
+                                                videoname TEXT PRIMARY KEY,
+                                                username TEXT,
+                                                fotos TEXT,
+                                                opis TEXT,
+                                                tags TEXT);''')
     db.commit()
 db_cursor.close()
 
 
+
+
+
 @login_required
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
+@app.route('/upload', methods=['GET','POST'])
+def upload():
+    form1 = Videoupload()
+    if form1.photo.data and form1.video.data:
+        db_cursor = db.cursor()
+        db_cursor.execute("SELECT * FROM info")
+        out = db_cursor.fetchall()
+        for i in out:
+            if current_user.username in i:
+                    vstav1 = shortuuid.ShortUUID().random(length=22)
+                    form1.video.data.save('static/videous/' + vstav1 + '.'+ form1.video.data.filename.split('.')[1])
+                    form1.photo.data.save('static/images/' + vstav1 +'.'+ form1.photo.data.filename.split('.')[1])
+                    photovst = vstav1
+                    db_cursor.execute('''INSERT or IGNORE INTO videous (videoname,username,fotos,opis,tags) VALUES (?, ?, ?, ?, ?)''', (vstav1,current_user.username,photovst,form1.opis.data,form1.tags.data))
+        db.commit()
+        db_cursor.close()
+    return render_template('upload.html', form=form1)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -52,7 +77,7 @@ def lologin():
             if i[1] == form.username.data and i[3] == form.password.data:
                 user = User(i[0], i[1], i[2], i[3])
                 login_user(user=user)
-                return redirect(url_for('main'))
+                return render_template('test.html', title='Вход')
         flash("Ошибочный username или password")
         return redirect(url_for('lologin'))
     return render_template('login.html', title='Вход', form=form)

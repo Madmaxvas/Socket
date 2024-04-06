@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+</head>
+<body>
+<form action="" method="post"  enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}<br> {# Панель в которой вводится никнейм пользователя #}
+        {{ form.name(size=32) }}<br>
+    </p>
+    <p>
+        {{ form.opis.label }}<br> {# Панель в который вводится пароль пользователя #}
+        {{ form.opis(size=32) }}<br>
+    </p>
+    <p>
+        {{ form.tags.label }}<br> {# Панель в который вводится пароль пользователя #}
+        {{ form.tags(size=32) }}<br>
+    </p>
+    <p>
+            {{ form.photo.label }}<br>
+            {{ form.photo }}<br>
+    </p>
+    <p>
+            {{ form.video.label }}<br>
+            {{ form.video }}<br>
+    </p>
+    <input type="submit">
+ </form>
+</body>
+</html>
