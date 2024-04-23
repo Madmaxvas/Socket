@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 {% import "bootstrap/wtf.html" as wtf %}
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }}{% else %}Welcome{% endif %}
+{% endblock %}
+
+{% block content %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -8,7 +15,10 @@
         <link rel="stylesheet" href="{{url_for('.static', filename='register.css')}}">
     </head>
     <body>
-        <h1>Регистрация</h1>
+        <header>
+            <h1>Регистрация</h1>
+        </header>
+        
         <form action="" method="post">
             {{ form.hidden_tag() }}
             <p>
@@ -31,6 +41,6 @@
             </p>
             <p>{{ wtf.form_field(form.submit, button_map={'submit':'success'}) }}</p>
         </form>
-        <h1>hw</h1>
     </body>
 </html>
+{% endblock %}

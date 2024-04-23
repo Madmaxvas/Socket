@@ -1,33 +1,47 @@
 <!DOCTYPE html>
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }}{% else %}Welcome{% endif %}
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Upload</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('.static', filename='upload.css')}}">
 </head>
 <body>
 <form action="" method="post"  enctype="multipart/form-data">
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.name.label }}<br> {# Панель в которой вводится никнейм пользователя #}
+    <def>
+        <p>Загрузите ваше видео</p>
+        {{ form.video }}<br>
+    </def>
+    <def>
+        <p>Загрузите превью для вашего видео</p>
+        {{ form.photo }}<br>
+    </def>
+    
+    <def>
+        <p>Название</p>
         {{ form.name(size=32) }}<br>
-    </p>
-    <p>
-        {{ form.opis.label }}<br> {# Панель в который вводится пароль пользователя #}
+    </def>
+    <def>
+        <p>Описание видео</p>
         {{ form.opis(size=32) }}<br>
-    </p>
-    <p>
-        {{ form.tags.label }}<br> {# Панель в который вводится пароль пользователя #}
+    </def>
+    <def>
+        <p>Тэги</p>
         {{ form.tags(size=32) }}<br>
-    </p>
-    <p>
-            {{ form.photo.label }}<br>
-            {{ form.photo }}<br>
-    </p>
-    <p>
-            {{ form.video.label }}<br>
-            {{ form.video }}<br>
-    </p>
+    </def>
+
     <input type="submit">
  </form>
 </body>
 </html>
+{% endblock %}
