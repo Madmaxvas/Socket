@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<style>
+.margin-block{
+margin-top:50px;
+}
+
+</style>
+<html>
+  <body>
+  <div>
+    <form action = "{{ url_for('upload') }}">
+        <button type="submit" class="btn first btn-lg btn btn-dark">Загрузить видео </button></form>
+    </div>
+  <div>
+    <form action = "{{ url_for('logout') }}">
+        <button type="submit" class="btn first btn-lg btn btn-dark">Выйти </button></form>
+    </div>
+    <center class="margin-block">
+        <table id='table'>
+            <tbody>
+            {% for i in range(info|length)%}
+              <tr>
+                  <td><form action="" method="post"  enctype="multipart/form-data"><input type = 'hidden' name="2" value="{{info[i][1]}}"><input type="image" src="{{url_for('static', filename='/images/' + info[i][1] + '.png')}}"  width="400" height="250"/></form> <h3>{{info[i][0]}}</h3></td>
+              </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+</center>
+</body></html>

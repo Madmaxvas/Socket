@@ -141,10 +141,14 @@ def load_user(user_id):
 @login_required
 @app.route('/spiso', methods=['GET','POST'])
 def spiso():
+    db_cursor = db.cursor()
     if request.method == 'POST':
         inf = request.form.get('2')
-        return render_template('test.html', inf = inf)
-    db_cursor = db.cursor()
+        db_cursor.execute(f"SELECT videoname,opis FROM videous WHERE videoname=(?)",(inf,))
+        infi = db_cursor.fetchall()
+        print(infi)
+        db_cursor.close()
+        return render_template('test.html', infi = infi)
     db_cursor.execute("SELECT name,fotos FROM videous")
     info = db_cursor.fetchall()
     db_cursor.close()

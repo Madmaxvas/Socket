@@ -9,7 +9,12 @@
 <body>
 <center>
 <video controls>#найти способ
-   <source src="{{url_for('static', filename='/videous/' + inf + '.mp4')}}">
-</video></center>
+   <source src="{{url_for('static', filename='/videous/' + infi[0][0] + '.mp4')}}">
+
+</video>
+    <h3>{{infi[0][1]}}</h3>
+    <form action = "{{ url_for('spiso') }}">
+        <button type="submit" class="btn first btn-lg btn btn-dark">Назад</button></form>
+</center>
 </body>
 </html>
