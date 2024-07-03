@@ -1,24 +1,37 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'bootstrap/base.html' %}
 
-{% block app_content %}
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.username.label }}<br> {# Панель в которой вводится никнейм пользователя #}
-        {{ form.username(size=32) }}<br>
-    </p>
-    <p>
-        {{ form.password.label }}<br> {# Панель в который вводится пароль пользователя #}
-        {{ form.password(size=32) }}<br>
-    </p>
-    <p>{{ form.remeber_me.label }}
-        {{ form.remeber_me() }}</p>
-    <p>{{ form.submit() }}</p>
+{% block title %}
+    {% if title %}{{ title }}{% else %}Welcome{% endif %}
+{% endblock %}
 
-</form>
-<div>
-    <form action = "{{ url_for('register') }}"> {# Кнопка которая перекидывает на ссылку регистрации #}
-        <button type="submit" class="btn first btn-lg btn btn-dark">Зарегистрироваться </button></form>
-</div>
+{% block content %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="{{url_for('.static', filename='login.css')}}">
+    </head>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br> {# Панель в которой вводится никнейм пользователя #}
+            {{ form.username(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.password.label }}<br> {# Панель в который вводится пароль пользователя #}
+            {{ form.password(size=32) }}<br>
+        </p>
+        <p>{{ form.remeber_me.label }}
+            {{ form.remeber_me() }}</p>
+        <p>{{ form.submit() }}</p>
+
+    </form>
+    <div>
+        <form action = "{{ url_for('register') }}"> {# Кнопка которая перекидывает на ссылку регистрации #}
+            <button type="submit" class="btn first btn-lg btn btn-dark">Зарегистрироваться </button></form>
+    </div>
 
 {% endblock %}

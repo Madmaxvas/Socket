@@ -1,0 +1,22 @@
+h1 {
+    color: #008c8c;
+}
+head{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+body {
+    margin-bottom: 60px; /* Margin bottom by footer height */
+    background-color: #fff;
+    margin-left: 5%;
+  }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+}
+form{
+    width: 90%;
+}
